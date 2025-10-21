@@ -1,0 +1,3 @@
+Hi. This is what is used to see if the text concordance actually works.
+Looks at frequency of characters and words. Maybe could compare performance with map or hash table.
+By: Yehia Elsayed, Aya Noaman, Ali Hussini, and Habiba Khalil.

@@ -1,0 +1,8 @@
+//
+// Created by yahia on 10/21/2025.
+//
+
+#ifndef UNTITLED1_CONCORDANCETREE_H
+#define UNTITLED1_CONCORDANCETREE_H
+
+#endif //UNTITLED1_CONCORDANCETREE_H
