@@ -7,11 +7,31 @@
 #include <iostream>
 using namespace std;
 struct Node {
-    int data;
+    string text;
     Node* left;
     Node* right;
     int height;
     int frequency;
+
+    Node(string&word) : text(word), left(NULL), right(NULL), height(1), frequency(1) {}
+};
+class ConcordanceTree {
+    public:
+    ConcordanceTree();
+    ~ConcordanceTree();
+    void insert(string);
+    void display(string);
+
+    private:
+    Node* root;
+    void print(Node*start);
+    int getheight(Node*start);
+    int balance(Node*start);
+    Node*rightrotate(Node*start);
+    Node*leftrotate(Node*start);
+    string lowercase(string&term);
+    Node* insertion(Node*node, string&term);
+
 };
 
 #endif //UNTITLED1_CONCORDANCETREE_H
