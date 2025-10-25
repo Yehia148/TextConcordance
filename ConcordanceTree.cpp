@@ -22,17 +22,55 @@ void ConcordanceTree::deleteall(Node *start) {
     delete start;
 }
 int ConcordanceTree::balance(Node *start) {
-
+if (!start) { //This provides the balance starting from the node.
+    return 0; //if the given pointer is null, just return zero, but if it is not then return the difference
+              //in height.
+}
+    else {
+        return getheight(start->left) - getheight(start->right);
+    }
 }
 int ConcordanceTree::getheight(Node *start) {
+    if (!start) { //This provides the balance starting from the node.
+        return 0; //if the given pointer is null, just return zero, but if it is not then return the difference
+        //in height.
+    }
+    else {
+        return start->height;
+    }
+}
+Node *ConcordanceTree::leftrotate(Node *start) { //regular right rotation implementation for AVL Tree.
+    Node *R = start->right;
+    Node *R_L = R->left;
+    // Perform rotation
+    R->left = start;
+    start->right = R_L;
+    // Update heights
+    start->height = 1 + max(getheight(T->left), getheight(start->right));
+    R->height = 1 + max(getheight(R->left), getheight(R->right));
+    return start; // Return new root
+}
+Node *ConcordanceTree::rightrotate(Node *start) { //regular right rotation implementation for AVL Tree.
+    Node *L = start->left;
+    Node *L_R = L->right;
+    // Perform rotation
+    L->right = start;
+    start->left = L_R;
+    // Update heights
+    start->height = 1 + max(getheight(start->left), getheight(start->right));
+    L->height = 1 + max(getheight(L->left), getheight(L->right));
+    return start; // Return new root
 
 }
-Node *ConcordanceTree::leftrotate(Node *start) {
-
+int ConcordanceTree::max(int first, int second) {
+    if (first > second) { //this function returns the greater of two numbers.
+        return first;
+    }
+    else {
+        return second;
+    }
 }
-Node *ConcordanceTree::rightrotate(Node *start) {
 
-}
 void ConcordanceTree::insert(string&term) {
 
 }

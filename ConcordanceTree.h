@@ -32,6 +32,7 @@ class ConcordanceTree {
     string lowercase(string&term);
     Node* insertion(Node*node, string&term);
     void deleteall(Node*start);
+    int max(int first, int second);
 };
 
 #endif //UNTITLED1_CONCORDANCETREE_H
