@@ -48,7 +48,7 @@ Node *ConcordanceTree::leftrotate(Node *start) { //regular right rotation implem
     // Update heights
     start->height = 1 + max(getheight(start->left), getheight(start->right));
     R->height = 1 + max(getheight(R->left), getheight(R->right));
-    return start; // Return new root
+    return R; // Return new root
 }
 Node *ConcordanceTree::rightrotate(Node *start) { //regular right rotation implementation for AVL Tree.
     Node *L = start->left;
@@ -59,7 +59,7 @@ Node *ConcordanceTree::rightrotate(Node *start) { //regular right rotation imple
     // Update heights
     start->height = 1 + max(getheight(start->left), getheight(start->right));
     L->height = 1 + max(getheight(L->left), getheight(L->right));
-    return start; // Return new root
+    return L; // Return new root
 
 }
 int ConcordanceTree::max(int first, int second) {
@@ -72,11 +72,43 @@ int ConcordanceTree::max(int first, int second) {
 }
 
 void ConcordanceTree::insert(string&term) {
-
+    //insert an element into the AVL Tree after going through the lowercase function.
+    string fixed = lowercase(term);
+    if (!fixed.empty()) {
+        root = insertion(root, fixed);
+    }
 }
 Node *ConcordanceTree::insertion(Node *node, string &term) {
+    if (node == nullptr)
+        return new Node(term);
+    if (term < node->text)
+        node->left = insertion(node->left, term);
+    else if (term > node->text)
+        node->right = insertion(node->right, term);
+    else {
+        // increase the frequency of the word if it is being inserted again
+        node->frequency++;
+        return node;
+    }
+    // Update height of this ancestor node
+    node->height = 1 + max(getheight(node->left), getheight(node->right));
+    // Get the BF of this ancestor node
+    int balancefactor = balance(node);
+    if (balancefactor > 1 && term < node->left->text)
+        return rightrotate(node);
+    if (balancefactor < -1 && term > node->right->text)
+        return leftrotate(node);
+    // Left Right Case
+    if (balancefactor > 1 && term > node->left->text) {
+        node->left = leftrotate(node->left);
+        return rightrotate(node); }
+    // Right Left Case
+    if (balancefactor < -1 && term < node->right->text)
+    { node->right = rightrotate(node->right);
+        return leftrotate(node); }
+    // Return the (unchanged) node pointer
+    return node; }
 
-}
 
 void ConcordanceTree::display() {
 print(root); //uses the print function to display frequency of each word starting from the root.

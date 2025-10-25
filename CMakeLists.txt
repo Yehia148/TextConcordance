@@ -3,6 +3,11 @@ project(TextConcordance)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(TextConcordance main.cpp
+add_executable(TextConcordance
+        main.cpp
         ConcordanceTree.h
-        ConcordanceTree.cpp)
+        ConcordanceTree.cpp
+)
+set_target_properties(TextConcordance PROPERTIES
+        VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+)
