@@ -46,7 +46,7 @@ Node *ConcordanceTree::leftrotate(Node *start) { //regular right rotation implem
     R->left = start;
     start->right = R_L;
     // Update heights
-    start->height = 1 + max(getheight(T->left), getheight(start->right));
+    start->height = 1 + max(getheight(start->left), getheight(start->right));
     R->height = 1 + max(getheight(R->left), getheight(R->right));
     return start; // Return new root
 }
@@ -78,14 +78,25 @@ Node *ConcordanceTree::insertion(Node *node, string &term) {
 
 }
 
-void ConcordanceTree::display(string&term) {
-
+void ConcordanceTree::display() {
+print(root); //uses the print function to display frequency of each word starting from the root.
 }
 string ConcordanceTree::lowercase(string &term) {
-
+string lower;
+    for (char a: term) { //goes through every letter in the string
+        if (isalnum(a)) { //library function that checks if it is alphanumeric
+            lower += tolower(a); //makes the letter lowercase
+        }
+    }
+    return lower;
 }
 void ConcordanceTree::print(Node *start) {
-
+    if (!start) { //goes through the entire tree and prints out the word and the frequency next to it.
+        return;   //this is the helper function for getting the frequency starting from the root.
+    }
+    print(start->left);
+    cout << start->text << ": " << start->frequency << endl;
+    print(start->right);
 }
 
 

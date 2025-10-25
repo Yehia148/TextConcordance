@@ -20,7 +20,7 @@ class ConcordanceTree {
     ConcordanceTree();
     ~ConcordanceTree();
     void insert(string&term);
-    void display(string&term);
+    void display();
 
     private:
     Node* root;
