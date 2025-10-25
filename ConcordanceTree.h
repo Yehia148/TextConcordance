@@ -19,8 +19,8 @@ class ConcordanceTree {
     public:
     ConcordanceTree();
     ~ConcordanceTree();
-    void insert(string);
-    void display(string);
+    void insert(string&term);
+    void display(string&term);
 
     private:
     Node* root;
@@ -31,7 +31,7 @@ class ConcordanceTree {
     Node*leftrotate(Node*start);
     string lowercase(string&term);
     Node* insertion(Node*node, string&term);
-
+    void deleteall(Node*start);
 };
 
 #endif //UNTITLED1_CONCORDANCETREE_H
