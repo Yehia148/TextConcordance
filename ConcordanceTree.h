@@ -13,14 +13,20 @@ struct Node {
     int height;
     int frequency;
 
+
+
     Node(string&word) : text(word), left(NULL), right(NULL), height(1), frequency(1) {}
 };
 class ConcordanceTree {
     public:
     ConcordanceTree();
     ~ConcordanceTree();
-    void insert(string&term);
     void display();
+    void insert(string& term, int lineNumber);  // Ali
+    void insert(string& term);
+    Node* find(const string& term);
+
+
 
     private:
     Node* root;
@@ -30,7 +36,7 @@ class ConcordanceTree {
     Node*rightrotate(Node*start);
     Node*leftrotate(Node*start);
     string lowercase(string&term);
-    Node* insertion(Node*node, string&term);
+    Node* insertion(Node* node, string& term, int lineNumber); //Ali
     void deleteall(Node*start);
     int max(int first, int second);
 };

@@ -71,43 +71,80 @@ int ConcordanceTree::max(int first, int second) {
     }
 }
 
-void ConcordanceTree::insert(string&term) {
+void ConcordanceTree::insert(string& term, int lineNumber) { //Ali (added the int lineNumber)
     //insert an element into the AVL Tree after going through the lowercase function.
     string fixed = lowercase(term);
     if (!fixed.empty()) {
-        root = insertion(root, fixed);
+        root = insertion(root, fixed, lineNumber);
     }
 }
-Node *ConcordanceTree::insertion(Node *node, string &term) {
-    if (node == nullptr)
-        return new Node(term);
+
+void ConcordanceTree::insert(string& term) { //Ali (Overloaded the function)
+    int dummyLine = -1;
+    insert(term, dummyLine);
+}
+
+Node* ConcordanceTree::insertion(Node* node, string& term, int lineNumber) {
+    (void)lineNumber; // prevents unused variable warning
+
+    if (node == nullptr) { // create new node for this word
+        Node* newNode = new Node(term);
+        return newNode;
+    }
+
     if (term < node->text)
-        node->left = insertion(node->left, term);
+        node->left = insertion(node->left, term, lineNumber);
     else if (term > node->text)
-        node->right = insertion(node->right, term);
+        node->right = insertion(node->right, term, lineNumber);
     else {
-        // increase the frequency of the word if it is being inserted again
+        // word already exists
         node->frequency++;
         return node;
     }
-    // Update height of this ancestor node
+
+    // update height
     node->height = 1 + max(getheight(node->left), getheight(node->right));
-    // Get the BF of this ancestor node
+
+    // rebalance if needed
     int balancefactor = balance(node);
+
+    // Left Left
     if (balancefactor > 1 && term < node->left->text)
         return rightrotate(node);
+
+    // Right Right
     if (balancefactor < -1 && term > node->right->text)
         return leftrotate(node);
-    // Left Right Case
+
+    // Left Right
     if (balancefactor > 1 && term > node->left->text) {
         node->left = leftrotate(node->left);
-        return rightrotate(node); }
-    // Right Left Case
-    if (balancefactor < -1 && term < node->right->text)
-    { node->right = rightrotate(node->right);
-        return leftrotate(node); }
-    // Return the (unchanged) node pointer
-    return node; }
+        return rightrotate(node);
+    }
+
+    // Right Left
+    if (balancefactor < -1 && term < node->right->text) {
+        node->right = rightrotate(node->right);
+        return leftrotate(node);
+    }
+
+    return node;
+}
+
+Node* ConcordanceTree::find(const string& term) { //Ali (added a function that searches for a specific word)
+    string fixed = lowercase(const_cast<string&>(term));
+    Node* current = root;
+    while (current != nullptr) {
+        if (fixed < current->text)
+            current = current->left;
+        else if (fixed > current->text)
+            current = current->right;
+        else
+            return current; // found
+    }
+    return nullptr;
+}
+
 
 
 void ConcordanceTree::display() {
