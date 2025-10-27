@@ -10,7 +10,7 @@ TrieNode::TrieNode() { //building Trie node structure - provides value to each o
     followCapacity = 0;
     for (int i = 0; i < 26; i++) {
         children[i] = NULL;
-    }
+    } //node takes character, not word.
 }
 
 
@@ -27,7 +27,7 @@ string TrieConcordance::normalizeToken(const string& raw) {
     string out;
     for (int i = 0; i < (int)raw.size(); i++) {
         char c = raw[i];
-        if (isalpha((unsigned char)c)) {
+        if (isalpha((unsigned char)c)) { //unsigned char used for safety.
             out += (char)tolower((unsigned char)c);
         }
     }
