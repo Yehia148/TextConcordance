@@ -32,12 +32,12 @@ string TrieConcordance::normalizeToken(const string& raw) {
         }
     }
     return out;
-}
+} //ensures the word is alphabetical
 
 int TrieConcordance::charIndex(char c) {
     // assume already lowercase a-z
     return c - 'a';
-}
+} //we subtract in order to get the correct indexing for the letter in children[]
 
 TrieNode* TrieConcordance::insertPath(const string& word) {
     TrieNode* cur = root;
@@ -53,9 +53,9 @@ TrieNode* TrieConcordance::insertPath(const string& word) {
         cur = cur->children[idx];
     }
     return cur;
-}
+} //goes through the trie to each character of the word. Adds nodes where needed for the word and returns the node corresponding to the last letter.
 
-TrieNode* TrieConcordance::findPath(const string& word) {
+TrieNode* TrieConcordance::findPath(const string& word) { //returns the node for a word if it exists.
     TrieNode* cur = root;
     for (int i = 0; i < (int)word.size(); i++) {
         int idx = charIndex(word[i]);
@@ -74,9 +74,10 @@ TrieNode* TrieConcordance::findPath(const string& word) {
     return cur;
 }
 
-void TrieConcordance::growFollowList(TrieNode* node) {
-    if (node->followCapacity == 0) {
-        node->followCapacity = 4;
+void TrieConcordance::growFollowList(TrieNode* node) { //when the number of words reaches the capacity, double side of capacity.
+    if (node->followCapacity == 0) { //the follow list stores the words that directly follow a given word in input text
+        node->followCapacity = 4; //if the word in the follow list already exists, increment its count.
+                                    //else, grow the list and insert it. Helps track bigrams.
         node->followList = new NextWordEntry[node->followCapacity];
         node->followCount = 0;
     } else if (node->followCount >= node->followCapacity) {
@@ -116,7 +117,7 @@ void TrieConcordance::insert(const string& currentWordRaw, const string& nextWor
     string currentWord = normalizeToken(currentWordRaw);
     if (currentWord.size() == 0) {
         return;
-    }
+    } //normalize current and next words, traverse currentword in the trie, mark as end of valid word, increment appearance in frequency, record the word coming after it.
 
     string nextWord = normalizeToken(nextWordRaw);
 
@@ -132,7 +133,7 @@ void TrieConcordance::insert(const string& currentWordRaw, const string& nextWor
 
 
 
-void TrieConcordance::printTopFollowers(TrieNode* node) {
+void TrieConcordance::printTopFollowers(TrieNode* node) { //prints the three most frequent next words in descending order.
     if (node->followCount == 0) {
         cout << "No common next-word suggestions." << endl;
         return;
@@ -191,7 +192,7 @@ void TrieConcordance::showWordInfo(const string& rawWord) {
 }
 
 
-void TrieConcordance::freeAll(TrieNode* node) {
+void TrieConcordance::freeAll(TrieNode* node) { //deletes all nodes and follower list from memory recursively.
     if (node == NULL) return;
 
     for (int i = 0; i < 26; i++) {
