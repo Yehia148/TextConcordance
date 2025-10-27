@@ -79,13 +79,13 @@ void ConcordanceTree::insert(string& term, int lineNumber) { //Ali (added the in
     }
 }
 
-void ConcordanceTree::insert(string& term) { //Ali (Overloaded the function)
-    int dummyLine = -1;
-    insert(term, dummyLine);
-}
+// void ConcordanceTree::insert(string& term) { //Ali (Overloaded the function)
+//     int dummyLine = -1;
+//     insert(term, dummyLine);
+// }
 
 Node* ConcordanceTree::insertion(Node* node, string& term, int lineNumber) {
-    (void)lineNumber; // prevents unused variable warning
+
 
     if (node == nullptr) { // create new node for this word
         Node* newNode = new Node(term);
@@ -131,8 +131,8 @@ Node* ConcordanceTree::insertion(Node* node, string& term, int lineNumber) {
     return node;
 }
 
-Node* ConcordanceTree::find(const string& term) { //Ali (added a function that searches for a specific word)
-    string fixed = lowercase(const_cast<string&>(term));
+Node* ConcordanceTree::find(string& term) { //Ali (added a function that searches for a specific word)
+    string fixed = lowercase((term));
     Node* current = root;
     while (current != nullptr) {
         if (fixed < current->text)

@@ -2,7 +2,7 @@
 #include <cctype>
 
 
-TrieNode::TrieNode() {
+TrieNode::TrieNode() { //building Trie node structure - provides value to each of the variables and creates an array of 26 children.
     isEndOfWord = false;
     frequency = 0;
     followList = NULL;
@@ -15,10 +15,10 @@ TrieNode::TrieNode() {
 
 
 TrieConcordance::TrieConcordance() {
-    root = new TrieNode();
+    root = new TrieNode(); //constructor gives the root an empty node.
 }
 
-TrieConcordance::~TrieConcordance() {
+TrieConcordance::~TrieConcordance() { //destructor deletes the nodes to free up memory.
     freeAll(root);
 }
 

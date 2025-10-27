@@ -70,7 +70,7 @@ int main() {
     cout << "=== TRIE CONTEXT EXAMPLES ===" << endl;
     trie.showWordInfo("the");
     trie.showWordInfo("and");
-    trie.showWordInfo("of");
+    trie.showWordInfo("apple");
 
     cout << "\n=== Program complete. ===" << endl;
     return 0;

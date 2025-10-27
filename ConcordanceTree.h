@@ -24,7 +24,7 @@ class ConcordanceTree {
     void display();
     void insert(string& term, int lineNumber);  // Ali
     void insert(string& term);
-    Node* find(const string& term);
+    Node* find(string& term);
 
 
 
