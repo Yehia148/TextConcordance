@@ -1,0 +1,4 @@
+C:/Users/yahia/Downloads/TextConcordance/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/TextConcordanceLib.dir
+C:/Users/yahia/Downloads/TextConcordance/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/TextConcordanceCLI.dir
+C:/Users/yahia/Downloads/TextConcordance/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
+C:/Users/yahia/Downloads/TextConcordance/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir

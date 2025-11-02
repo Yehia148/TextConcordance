@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 project(UITextConcordance VERSION 0.1 LANGUAGES CXX)
-
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../backend ${CMAKE_BINARY_DIR}/backend_build)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -41,9 +41,10 @@ else()
         )
     endif()
 endif()
-
-target_link_libraries(UITextConcordance PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
-
+target_link_libraries(UITextConcordance PRIVATE
+    Qt${QT_VERSION_MAJOR}::Widgets
+    TextConcordanceLib
+)
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.

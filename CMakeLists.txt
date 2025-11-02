@@ -1,15 +1,28 @@
-cmake_minimum_required(VERSION 4.0)
+cmake_minimum_required(VERSION 3.16)
 project(TextConcordance)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(TextConcordance
-        main.cpp
-        ConcordanceTree.h
+
+add_library(TextConcordanceLib STATIC
         ConcordanceTree.cpp
-        TrieConcordance.h
         TrieConcordance.cpp
 )
-set_target_properties(TextConcordance PROPERTIES
+
+target_include_directories(TextConcordanceLib PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+
+add_executable(TextConcordanceCLI
+        main.cpp
+)
+
+
+target_link_libraries(TextConcordanceCLI PRIVATE TextConcordanceLib)
+
+
+set_target_properties(TextConcordanceCLI PROPERTIES
         VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
 )
