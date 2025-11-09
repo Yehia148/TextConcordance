@@ -161,4 +161,68 @@ vpsi Map::sort_by_frequency() {
 }
 
 
+uint32_t rotate_left_32bit(uint32_t hash, const uint32_t &r2) {
+    for (int i=0; i<r2; ++i) {
+        bool temp = 1<<31 & hash;
+        hash = hash << 1;
+        hash |= temp;
+        // cout << bitset<32>(hash) << "\n";
+    }
+
+    return hash;
+}
+
+
+uint32_t hash_fun(string key) {
+    const uint32_t c1 = 0xcc9e2d51,
+                   c2 = 0x1b873593,
+                   r1 = 15,
+                   r2 = 13,
+                   m = 5,
+                   n = 0xe6546b64;
+
+    uint32_t hash = 0x9747b28c;  // Initial randomly chosen seed
+
+    // Loop over the string in 4-byte chunks
+    const int nblocks = key.size() / 4;
+    int32_t *blocks = (int32_t *)key.data();
+    for (int i=0; i<nblocks; ++i) {
+        uint32_t k = blocks[i];
+
+        k *= c1;
+        k = rotate_left_32bit(k, r1);  // Rotate k left by r1 bits
+        k *= c2;
+        
+        hash ^= k;
+        hash = rotate_left_32bit(hash, r2);
+        hash = hash * m + n;
+    }
+
+    // Handle remaining bytes
+    const uint8_t *tail = (const uint8_t*)(key.data() + nblocks * 4);
+    uint32_t k1 = 0;
+    
+    switch (key.size() & 3) {
+        case 3: k1 ^= tail[2] << 16;
+        case 2: k1 ^= tail[1] << 8;
+        case 1: k1 ^= tail[0];
+                k1 *= c1;
+                k1 = rotate_left_32bit(k1, r1);
+                k1 *= c2;
+                hash ^= k1;
+    }
+
+    // Finalization, ensure bytes are well-mixed
+    hash ^= key.size();
+    hash ^= (hash >> 16);
+    hash *= 0x85ebca6b;
+    hash ^= (hash >> 13);
+    hash *= 0xc2b2ae35;
+    hash ^= (hash >> 16);
+
+    
+    return hash;
+}
+
+
 #endif
