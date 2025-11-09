@@ -2,6 +2,8 @@
 #define MAP.H
 
 #include "map.h"
+#include <iostream>
+using std::cout;
 
 
 Map::Map() {
@@ -114,11 +116,11 @@ int Map::get_frequency(string word) {
 }
 
 
-void merge_sort(vpsi &list) {
+void Map::merge_sort(vpsi &list) {
     if (list.empty() || list.size() == 1) return;
 
-    vpsi half_1(vpsi(list.begin(), list.end() + (list.end()-list.begin()) / 2));
-    vpsi half_2(vpsi(list.end() + (list.end()-list.begin()) / 2, list.end()));
+    vpsi half_1(vpsi(list.begin(), list.begin() + (list.end()-list.begin()) / 2));
+    vpsi half_2(vpsi(list.begin() + (list.end()-list.begin()) / 2, list.end()));
     merge_sort(half_1);
     merge_sort(half_2);
 
@@ -161,7 +163,7 @@ vpsi Map::sort_by_frequency() {
 }
 
 
-uint32_t rotate_left_32bit(uint32_t hash, const uint32_t &r2) {
+uint32_t Map::rotate_left_32bit(uint32_t hash, const uint32_t &r2) {
     for (int i=0; i<r2; ++i) {
         bool temp = 1<<31 & hash;
         hash = hash << 1;
@@ -173,7 +175,7 @@ uint32_t rotate_left_32bit(uint32_t hash, const uint32_t &r2) {
 }
 
 
-uint32_t hash_fun(string key) {
+uint32_t Map::hash_fun(string key) {
     const uint32_t c1 = 0xcc9e2d51,
                    c2 = 0x1b873593,
                    r1 = 15,
@@ -222,6 +224,16 @@ uint32_t hash_fun(string key) {
 
     
     return hash;
+}
+
+
+int main(){
+    vpsi r = {pair<string, int>("a", 5), pair<string, int>("b", 2), pair<string, int>("c", 4)};
+    Map a;
+    // a.merge_sort(r);
+    for (pair<string, int> i : r) {
+        cout << i.second << " " << i.first << "\n";
+    }
 }
 
 
