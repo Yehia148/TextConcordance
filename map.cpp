@@ -2,7 +2,6 @@
 #define MAP.H
 
 #include "map.h"
-typedef vector<pair<string, int> > vpsi;
 
 
 Map::Map() {

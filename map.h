@@ -4,6 +4,8 @@
 // #include "spacy/spacy.h"
 using std::string, std::vector, std::pair;
 
+typedef vector<pair<string, int> > vpsi;
+
 
 class Node {
 public:
@@ -20,9 +22,9 @@ private:
     const int LIST_LENGTH = 2503;
     int word_count;
     int hash_fun(string token);
-    vector<pair<string, int> > sort_by_frequency();
+    vpsi sort_by_frequency();
     void append_word(string word, int hash);
-    void merge_sort(vector<pair<string, int> > list);
+    void merge_sort(vpsi &list);
 
 public:
     Map();
