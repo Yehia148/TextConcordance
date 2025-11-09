@@ -6,35 +6,143 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>930</width>
-    <height>682</height>
+    <width>1034</width>
+    <height>878</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>540</x>
-      <y>500</y>
-      <width>93</width>
-      <height>29</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Frequencies</string>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="textEdit">
+   <widget class="QTextEdit" name="inputTextEdit">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>20</y>
-      <width>751</width>
-      <height>461</height>
+      <y>50</y>
+      <width>991</width>
+      <height>501</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelInputPrompt">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>301</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Enter your text below:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="analyzeButton">
+    <property name="geometry">
+     <rect>
+      <x>810</x>
+      <y>560</y>
+      <width>201</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Analyze Text Frequency</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="suggestButton">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>560</y>
+      <width>201</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Get AI Suggestions</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelMostFrequentTitle">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>560</y>
+      <width>321</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Most Frequent Word:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="frequentWordLabel">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>550</y>
+      <width>111</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>(Hold)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelSuggestionTitle">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>610</y>
+      <width>291</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>AI Suggestion:</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="suggestionOutput">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>660</y>
+      <width>991</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>
@@ -43,7 +151,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>930</width>
+     <width>1034</width>
      <height>26</height>
     </rect>
    </property>
