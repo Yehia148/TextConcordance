@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "..\TrieConcordance.h"
-//#include "..\map.h"
+#include "..\map.h"
 #include <QMessageBox>
 #include <QRegularExpression>
 MainWindow::MainWindow(QWidget *parent)
@@ -16,12 +16,14 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete wordMap;
 }
 
 
 void MainWindow::on_analyzeButton_clicked()
 {
-    //wordMap = Map();
+    delete wordMap;
+    wordMap = new Map();
     trie = TrieConcordance();
     QString text = ui->inputTextEdit->toPlainText().trimmed();
 
@@ -41,14 +43,14 @@ void MainWindow::on_analyzeButton_clicked()
         trie.insert(w.toStdString(), next.toStdString());
     }
 
-    //vector<pair<string, int>> allWords = wordMap.sort_by_frequency();
-    //if (allWords.empty()) {
-   //     QMessageBox::information(this, "Info", "No words found.");
-   //     return;
-  //  }
+    vector<pair<string, int>> allWords = wordMap->sort_by_frequency();
+    if (allWords.empty()) {
+       QMessageBox::information(this, "Info", "No words found.");
+       return;
+   }
 
-   // mostFrequentWord = QString::fromStdString(allWords.back().first);
-   // ui->frequentWordLabel->setText(mostFrequentWord);
+   mostFrequentWord = QString::fromStdString(allWords.back().first);
+   ui->frequentWordLabel->setText(mostFrequentWord);
 
 }
 void MainWindow::on_suggestButton_clicked()

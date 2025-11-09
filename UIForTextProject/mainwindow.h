@@ -26,7 +26,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    //Map wordMap;
+  Map*wordMap;
     TrieConcordance trie;
     QString mostFrequentWord;
 };

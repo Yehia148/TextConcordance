@@ -1,5 +1,5 @@
-#ifndef MAP.H
-#define MAP.H
+#ifndef MAP_H
+#define MAP_H
 
 #include "map.h"
 #include <iostream>
@@ -224,16 +224,6 @@ uint32_t Map::hash_fun(string key) {
 
     
     return hash;
-}
-
-
-int main(){
-    vpsi r = {pair<string, int>("a", 5), pair<string, int>("b", 2), pair<string, int>("c", 4)};
-    Map a;
-    // a.merge_sort(r);
-    for (pair<string, int> i : r) {
-        cout << i.second << " " << i.first << "\n";
-    }
 }
 
 

@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 #include <vector>
 #include <utility>
@@ -24,7 +25,7 @@ private:
     int word_count;
     uint32_t rotate_left_32bit(uint32_t hash, const uint32_t &r2);
     uint32_t hash_fun(string key);
-    vpsi sort_by_frequency();
+
     void append_word(string word, int hash);
     void merge_sort(vpsi &list);
 
@@ -36,4 +37,5 @@ public:
     void put_word(string word);
     int delete_word(string word);
     int get_frequency(string word);
+    vpsi sort_by_frequency();
 };

@@ -19,7 +19,7 @@ set(PROJECT_SOURCES
         mainwindow.ui
         ../TrieConcordance.cpp
          ../TrieConcordance.h
-        ../map.cpp
+       ../map.cpp
          ../map.h
 )
 
