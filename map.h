@@ -1,8 +1,11 @@
 #include <string>
 #include <vector>
 #include <utility>
+#include <stdint.h>
 // #include "spacy/spacy.h"
 using std::string, std::vector, std::pair;
+
+typedef vector<pair<string, int> > vpsi;
 
 
 class Node {
@@ -19,10 +22,11 @@ private:
     Node** frequency_list;
     const int LIST_LENGTH = 2503;
     int word_count;
-    int hash_fun(string token);
-    vector<pair<string, int> > sort_by_frequency();
+    uint32_t rotate_left_32bit(uint32_t hash, const uint32_t &r2);
+    uint32_t hash_fun(string key);
+    vpsi sort_by_frequency();
     void append_word(string word, int hash);
-    void merge_sort(vector<pair<string, int> > list);
+    void merge_sort(vpsi &list);
 
 public:
     Map();
