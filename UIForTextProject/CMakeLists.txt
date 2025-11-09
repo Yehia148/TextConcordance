@@ -19,8 +19,8 @@ set(PROJECT_SOURCES
         mainwindow.ui
         ../TrieConcordance.cpp
          ../TrieConcordance.h
-         ../ConcordanceTree.cpp
-         ../ConcordanceTree.h
+         #../map.cpp
+         #../map.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
