@@ -6,7 +6,7 @@
 #include <QRegularExpression>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::MainWindow), wordMap(nullptr)
 {
     ui->setupUi(this);
     connect(ui->analyzeButton, &QPushButton::clicked, this, &MainWindow::on_analyzeButton_clicked);
@@ -37,7 +37,7 @@ void MainWindow::on_analyzeButton_clicked()
 
     for (int i = 0; i < words.size(); ++i) {
         QString w = words[i].toLower();
-       // wordMap.put_word(w.toStdString());
+       wordMap->put_word(w.toStdString());
 
         QString next = (i + 1 < words.size()) ? words[i + 1].toLower() : "";
         trie.insert(w.toStdString(), next.toStdString());

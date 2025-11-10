@@ -7,7 +7,7 @@ using std::cout;
 
 
 Map::Map() {
-    frequency_list = new Node*[LIST_LENGTH];
+    frequency_list = new Node*[LIST_LENGTH]();
     word_count = 0;
 }
 
@@ -21,7 +21,7 @@ Map::Map(string word) {
 
 
 Map::Map(string word_list[], int size) {
-    frequency_list = new Node*[LIST_LENGTH];
+    frequency_list = new Node*[LIST_LENGTH]();
     word_count = 0;
     
     for(int i=0; i<size; ++i) {
@@ -31,7 +31,7 @@ Map::Map(string word_list[], int size) {
 
 
 Map::Map(vector<string> word_list) {
-    frequency_list = new Node*[LIST_LENGTH];
+    frequency_list = new Node*[LIST_LENGTH]();
     word_count = 0;
 
     for(string item : word_list) {
@@ -155,6 +155,7 @@ vpsi Map::sort_by_frequency() {
 
         while (temp) {
             list.push_back(pair<string, int>(temp->word, temp->frequency));
+            temp = temp->next;
         }
     }
 
@@ -194,7 +195,7 @@ uint32_t Map::hash_fun(string key) {
         k *= c1;
         k = rotate_left_32bit(k, r1);  // Rotate k left by r1 bits
         k *= c2;
-        
+
         hash ^= k;
         hash = rotate_left_32bit(hash, r2);
         hash = hash * m + n;
@@ -203,7 +204,7 @@ uint32_t Map::hash_fun(string key) {
     // Handle remaining bytes
     const uint8_t *tail = (const uint8_t*)(key.data() + nblocks * 4);
     uint32_t k1 = 0;
-    
+
     switch (key.size() & 3) {
         case 3: k1 ^= tail[2] << 16;
         case 2: k1 ^= tail[1] << 8;
@@ -222,7 +223,7 @@ uint32_t Map::hash_fun(string key) {
     hash *= 0xc2b2ae35;
     hash ^= (hash >> 16);
 
-    
+
     return hash;
 }
 
