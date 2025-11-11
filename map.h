@@ -31,6 +31,7 @@ private:
 
 public:
     Map();
+    ~Map();
     Map(string word);
     Map(string word_list[], int word_count);
     Map(vector<string> word_list);

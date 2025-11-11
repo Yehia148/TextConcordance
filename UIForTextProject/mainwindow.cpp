@@ -22,7 +22,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_analyzeButton_clicked()
 {
-    delete wordMap;
+    if(wordMap){
+        delete wordMap;
+        wordMap = nullptr;
+    }
+
     wordMap = new Map();
     trie = TrieConcordance();
     QString text = ui->inputTextEdit->toPlainText().trimmed();
