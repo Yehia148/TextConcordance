@@ -138,40 +138,37 @@ void Map::merge_sort(vpsi &list) {
     merge_sort(half_1);
     merge_sort(half_2);
 
-    int i=0, j=0, ind=0;
-    for (i, j, ind; i<half_1.size(), j<half_2.size(); ++ind) {
-        if(half_1[i].second < half_2[j].second) {
-            list[ind] = half_1[i];
-            ++i;
-        } else {
-            list[ind] = half_2[j];
-            ++j;
-        }
-    }
-    // while (i < half_1.size() && j < half_2.size()) {
-    //     if (half_1[i].second < half_2[j].second) {
-    //         list[ind++] = half_1[i++];
+    // int i=0, j=0, ind=0;
+    // for (i, j, ind; i<half_1.size(), j<half_2.size(); ++ind) {
+    //     if(half_1[i].second < half_2[j].second) {
+    //         list[ind] = half_1[i];
+    //         ++i;
     //     } else {
-    //         list[ind++] = half_2[j++];
+    //         list[ind] = half_2[j];
+    //         ++j;
     //     }
     // }
 
-    // while (i < half_1.size()){
-    //     list[ind++] = half_1[i++];
-    // }
-    // while (j < half_2.size()){
-    //     list[ind++] = half_2[j++];
-    // }
-
-    if (i == half_1.size()) {
-        for (j; j<half_2.size(); ++j) {
-            list[ind] = half_2[j];
-        }
-    } else if (j == half_2.size()) {
-        for (i; i<half_1.size(); ++i) {
-            list[ind] = half_1[i];
+    // if (i == half_1.size()) {
+    //     for (j; j<half_2.size(); ++j) {
+    //         list[ind] = half_2[j];
+    //     }
+    // } else if (j == half_2.size()) {
+    //     for (i; i<half_1.size(); ++i) {
+    //         list[ind] = half_1[i];
+    //     }
+ //   }
+    int i = 0, j = 0, ind = 0;
+    while (i < half_1.size() && j < half_2.size()) {
+        if (half_1[i].second < half_2[j].second) {
+            list[ind++] = half_1[i++];
+        } else {
+            list[ind++] = half_2[j++];
         }
     }
+
+    while (i < half_1.size()) list[ind++] = half_1[i++];
+    while (j < half_2.size()) list[ind++] = half_2[j++];
 }
 
 
