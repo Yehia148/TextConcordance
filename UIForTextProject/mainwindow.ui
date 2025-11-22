@@ -75,7 +75,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Get AI Suggestions</string>
+     <string>Get Suggestions</string>
     </property>
    </widget>
    <widget class="QLabel" name="labelMostFrequentTitle">
