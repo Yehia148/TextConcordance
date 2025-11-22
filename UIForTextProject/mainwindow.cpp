@@ -43,7 +43,7 @@ void MainWindow::on_analyzeButton_clicked()
     //this is a warning message to the user if there is no text inputted
     QStringList words = text.split(QRegularExpression("\\W+"), Qt::SkipEmptyParts);
     //slices text where separators match
-    //this QStringList is QT's dynamic list class, and this splits the text ingoring punctuation
+    //this QStringList is QT's dynamic list class (behaves like a container) , and this splits the text ingoring punctuation
     //into words using a regular expression, \\W+ is one or more non-word characters (non-letters, non digits, non underscore)
     //for (non-letters, non digits, non underscore), it removes them because the act as separators
     //the split tells splitemptyparts not to include empty strings in the result
@@ -52,7 +52,10 @@ void MainWindow::on_analyzeButton_clicked()
     //Examples:
 
     //state-of-the-art -> ["state", "of", "the", "art"]
-    //
+    //arabic or chinese are also separators
+    //hello🙂world -> ["hello", "world"]
+    //any punctuation. LIMITATION: apostrophes are also treated as separators
+
     for (int i = 0; i < words.size(); ++i) {
         QString w = words[i].toLower();
        wordMap->put_word(w.toStdString());
