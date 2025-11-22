@@ -17,6 +17,9 @@ target_include_directories(TextConcordanceLib PUBLIC
 
 add_executable(TextConcordanceCLI
         main.cpp
+        WordNetSynonyms.cpp
+        WordNetSynonyms.h
+        map.cpp
 )
 
 
@@ -26,3 +29,4 @@ target_link_libraries(TextConcordanceCLI PRIVATE TextConcordanceLib)
 set_target_properties(TextConcordanceCLI PROPERTIES
         VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
 )
+

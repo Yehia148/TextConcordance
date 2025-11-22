@@ -30,10 +30,8 @@ public:
 
 
     void insert(const string& currentWord, const string& nextWord);
-
-
     void showWordInfo(const string& rawWord);
-
+    string getMostFrequentWord();
 private:
     TrieNode* root;
 
@@ -59,6 +57,11 @@ private:
 
 
     void printTopFollowers(TrieNode* node);
+
+    void findMostFrequent(TrieNode* node,
+                          string& current,
+                          string& bestWord,
+                          int& bestFreq);
 };
 
 #endif // TRIE_CONCORDANCE_H

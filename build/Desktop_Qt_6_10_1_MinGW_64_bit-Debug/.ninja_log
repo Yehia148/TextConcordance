@@ -1,0 +1,7 @@
+# ninja log v6
+2	581	7855089958021968	CMakeFiles/TextConcordanceLib.dir/ConcordanceTree.cpp.obj	4cadb316b01392dc
+13	598	7855089958129387	CMakeFiles/TextConcordanceLib.dir/TrieConcordance.cpp.obj	44cfa83cd1dec468
+598	690	7855089963977441	libTextConcordanceLib.a	3de767f7202ad07
+25	726	7855089958246566	CMakeFiles/TextConcordanceCLI.dir/main.cpp.obj	f6e7f34c572ec3b7
+39	872	7855089958383276	CMakeFiles/TextConcordanceCLI.dir/WordNetSynonyms.cpp.obj	fbbe930623af4787
+872	1275	7855089966716788	TextConcordanceCLI.exe	9ccdacc8c79b92bc

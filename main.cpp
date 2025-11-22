@@ -3,17 +3,18 @@
 #include <cctype>
 #include "ConcordanceTree.h"
 #include "TrieConcordance.h"
+#include "WordNetSynonyms.h"
 
 using namespace std;
 
-int tokenizeLine(const string& line, string tokens[], int maxTokens) {
+int tokenizeLine(const string &line, string tokens[], int maxTokens) {
     string current = "";
     int count = 0;
 
-    for (int i = 0; i <= (int)line.size(); i++) {
-        char c = (i < (int)line.size()) ? line[i] : ' ';
+    for (int i = 0; i <= (int) line.size(); i++) {
+        char c = (i < (int) line.size()) ? line[i] : ' ';
 
-        if (isalnum((unsigned char)c)) {
+        if (isalnum((unsigned char) c)) {
             current += c;
         } else {
             if (current != "" && count < maxTokens) {
@@ -66,6 +67,29 @@ int main() {
     cout << "=== AVL WORD FREQUENCIES (alphabetical) ===" << endl;
     avl.display();
     cout << endl;
+
+    cout << "\n=== WORDNET SYNONYMS ===" << endl;
+
+    // get most frequent word from trie
+    string mostFrequentWord = trie.getMostFrequentWord();
+
+    if (mostFrequentWord.empty()) {
+        cout << "No words found in trie.\n";
+    } else {
+        cout << "Most frequent word: " << mostFrequentWord << "\n";
+
+        // call your WordNet helper
+        auto synonyms = getSynonyms(mostFrequentWord);
+
+        if (synonyms.empty()) {
+            cout << "No synonyms found in WordNet for \"" << mostFrequentWord << "\".\n";
+        } else {
+            cout << "Synonyms:\n";
+            for (const auto &s: synonyms) {
+                cout << " - " << s << '\n';
+            }
+        }
+    }
 
     cout << "=== TRIE CONTEXT EXAMPLES ===" << endl;
     trie.showWordInfo("the");

@@ -207,3 +207,35 @@ void TrieConcordance::freeAll(TrieNode* node) { //deletes all nodes and follower
 
     delete node;
 }
+
+void TrieConcordance::findMostFrequent(TrieNode* node,
+                                       string& current,
+                                       string& bestWord,
+                                       int& bestFreq) {
+    if (!node) return;
+
+    // If this node marks the end of a word, check its frequency
+    if (node->isEndOfWord && node->frequency > bestFreq) {
+        bestFreq = node->frequency;
+        bestWord = current;
+    }
+
+    // Traverse children 'a'..'z'
+    for (int i = 0; i < 26; i++) {
+        if (node->children[i] != nullptr) {
+            current.push_back('a' + i);                     // go down
+            findMostFrequent(node->children[i], current,    // recurse
+                             bestWord, bestFreq);
+            current.pop_back();                             // backtrack
+        }
+    }
+}
+
+string TrieConcordance::getMostFrequentWord() {
+    string bestWord;
+    int bestFreq = 0;
+    string current;
+
+    findMostFrequent(root, current, bestWord, bestFreq);
+    return bestWord;   // will be "" if trie is empty
+}

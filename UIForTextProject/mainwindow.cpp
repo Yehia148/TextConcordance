@@ -4,6 +4,7 @@
 #include "..\map.h"
 #include <QMessageBox>
 #include <QRegularExpression>
+#include "../WordNetSynonyms.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow), wordMap(nullptr)
@@ -92,8 +93,27 @@ void MainWindow::on_suggestButton_clicked()
         return;
     }
 
-    QString text = ui->inputTextEdit->toPlainText();
-    string key = mostFrequentWord.toStdString();
+    // make the most frequent word into string for WordNet
+    std::string key = mostFrequentWord.toStdString();
 
+    // calling the WordNet synonym function
+    std::vector<std::string> synonyms = getSynonyms(key);
+
+    QString formatted;
+
+    if (synonyms.empty()) {
+        formatted = QString("No synonyms found in WordNet for \"%1\".")
+                        .arg(mostFrequentWord);
+    } else {
+        formatted += "Top Synonyms for \"" + mostFrequentWord + "\":\n\n";
+        for (const auto &s : synonyms) {
+            formatted += "• " + QString::fromStdString(s) + "\n";
+        }
+    }
+
+
+    ui->suggestionOutput->setPlainText(formatted);
 }
+
+
 

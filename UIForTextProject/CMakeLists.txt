@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 project(UIForTextProject VERSION 0.1 LANGUAGES CXX)
 
+set(CMAKE_PREFIX_PATH "D:/Qt/6.10.1/mingw_64")
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -21,6 +22,7 @@ set(PROJECT_SOURCES
          ../TrieConcordance.h
        ../map.cpp
          ../map.h
+        ../WordNetSynonyms.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
