@@ -29,5 +29,6 @@ private:
   Map*wordMap;
     TrieConcordance trie;
     QString mostFrequentWord;
+    const int frequency = 5;
 };
 #endif // MAINWINDOW_H

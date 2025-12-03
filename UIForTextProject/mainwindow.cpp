@@ -82,7 +82,16 @@ void MainWindow::on_analyzeButton_clicked()
    mostFrequentWord = QString::fromStdString(allWords.back().first);
    //returns the last element which is the most frequet because the list is sorted ascending
    //.first is the word in (string, int)
-   ui->frequentWordLabel->setText(mostFrequentWord);
+   if(allWords.back().second >= frequency){
+       ui->frequentWordLabel->setText(mostFrequentWord);
+   }
+   else{
+        ui->frequentWordLabel->setText("(hold)");
+       QMessageBox::information(this, "Info", "All good, you have normal frequency :)");
+
+       return;
+   }
+
    //updates a label on the UI to show the result
 
    //If all words have the same frequncy, the last word in the sorted list is most frequent
