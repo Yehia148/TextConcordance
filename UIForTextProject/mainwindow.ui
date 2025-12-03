@@ -75,7 +75,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Get AI Suggestions</string>
+     <string>Get Suggestions</string>
     </property>
    </widget>
    <widget class="QLabel" name="labelMostFrequentTitle">
@@ -129,7 +129,7 @@
      </font>
     </property>
     <property name="text">
-     <string>AI Suggestion:</string>
+     <string>Suggestions:</string>
     </property>
    </widget>
    <widget class="QTextEdit" name="suggestionOutput">
@@ -152,7 +152,7 @@
      <x>0</x>
      <y>0</y>
      <width>1034</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
