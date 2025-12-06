@@ -31,6 +31,11 @@ public:
 
     void insert(const string& currentWord, const string& nextWord);
     void showWordInfo(const string& rawWord);
+    bool getBestCompletion(const string& prefix, string& outWord);
+    bool getNextWordSuggestion(const string& prevWord,
+                               const string& nextPrefix,
+                               string& outWord);
+
     string getMostFrequentWord();
 private:
     TrieNode* root;

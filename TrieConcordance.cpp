@@ -239,3 +239,55 @@ string TrieConcordance::getMostFrequentWord() {
     findMostFrequent(root, current, bestWord, bestFreq);
     return bestWord;   // will be "" if trie is empty
 }
+
+bool TrieConcordance::getBestCompletion(const string& prefix, string& outWord) {
+    string norm = normalizeToken(prefix);
+    if (norm.empty()) return false;
+
+    TrieNode* node = findPath(norm);
+    if (!node) return false;
+
+    string bestWord;
+    int bestFreq = 0;
+    string current = norm;
+
+    findMostFrequent(node, current, bestWord, bestFreq);
+    if (bestFreq == 0) return false;
+
+    outWord = bestWord;
+    return true;
+}
+
+bool TrieConcordance::getNextWordSuggestion(const string& prevWord,
+                                            const string& nextPrefix,
+                                            string& outWord) {
+    string prev = normalizeToken(prevWord);
+    if (prev.empty()) return false;
+
+    TrieNode* node = findPath(prev);
+    if (!node || node->followCount == 0) return false;
+
+    string normPrefix = normalizeToken(nextPrefix);
+    int bestCount = 0;
+    string best;
+
+    for (int i = 0; i < node->followCount; i++) {
+        const string& w = node->followList[i].word;
+        if (!normPrefix.empty()) {
+            if (w.size() < normPrefix.size() ||
+                w.compare(0, normPrefix.size(), normPrefix) != 0) {
+                continue;
+                }
+        }
+        int c = node->followList[i].count;
+        if (c > bestCount) {
+            bestCount = c;
+            best = w;
+        }
+    }
+
+    if (bestCount == 0 || best.empty()) return false;
+
+    outWord = best;
+    return true;
+}

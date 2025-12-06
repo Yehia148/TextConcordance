@@ -5,6 +5,10 @@
 #include <QMessageBox>
 #include <QRegularExpression>
 #include "../WordNetSynonyms.h"
+#include <QTextCursor>
+#include <QKeyEvent>
+#include "GhostTextEdit.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow), wordMap(nullptr)
@@ -12,6 +16,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     connect(ui->analyzeButton, &QPushButton::clicked, this, &MainWindow::on_analyzeButton_clicked);
     connect(ui->suggestButton, &QPushButton::clicked, this, &MainWindow::on_suggestButton_clicked);
+
+    ui->inputTextEdit->installEventFilter(this);
+    connect(ui->inputTextEdit, &QTextEdit::textChanged,
+            this, &MainWindow::onInputTextChanged);
+
 } //This syntax is what connects QT buttons and the ones that user is able to press with the functionalities below
 
 MainWindow::~MainWindow()
@@ -126,6 +135,107 @@ void MainWindow::on_suggestButton_clicked()
 
     ui->suggestionOutput->setPlainText(formatted);
 }
+
+void MainWindow::onInputTextChanged()
+{
+    QString text = ui->inputTextEdit->toPlainText();
+    QTextCursor cursor = ui->inputTextEdit->textCursor();
+    int pos = cursor.position();
+
+    QString before = text.left(pos);
+    QStringList words = before.split(QRegularExpression("\\W+"),
+                                     Qt::SkipEmptyParts);
+
+    auto ghostEdit = qobject_cast<GhostTextEdit*>(ui->inputTextEdit);
+
+    if (words.isEmpty()) {
+        currentSuggestion.clear();
+        if (ghostEdit) ghostEdit->setGhostText(QString());
+        return;
+    }
+
+    QString last = words.last().toLower();
+    QString prev = (words.size() >= 2)
+                   ? words[words.size() - 2].toLower()
+                   : QString();
+
+    std::string suggestionStd;
+    bool got = false;
+
+    if (!prev.isEmpty()) {
+        got = trie.getNextWordSuggestion(prev.toStdString(),
+                                         last.toStdString(),
+                                         suggestionStd);
+    }
+
+    if (!got) {
+        got = trie.getBestCompletion(last.toStdString(), suggestionStd);
+    }
+
+    if (!got) {
+        currentSuggestion.clear();
+        if (ghostEdit) ghostEdit->setGhostText(QString());
+        return;
+    }
+
+    currentSuggestion = QString::fromStdString(suggestionStd);
+
+    if (currentSuggestion.isEmpty() ||
+        currentSuggestion.compare(last, Qt::CaseInsensitive) == 0 ||
+        !currentSuggestion.startsWith(last, Qt::CaseInsensitive)) {
+
+        currentSuggestion.clear();
+        if (ghostEdit) ghostEdit->setGhostText(QString());
+        return;
+        }
+
+    QString tail = currentSuggestion.mid(last.length());
+
+    if (ghostEdit)
+        ghostEdit->setGhostText(tail);
+}
+
+
+
+bool MainWindow::eventFilter(QObject* obj, QEvent* event)
+{
+    if (obj == ui->inputTextEdit && event->type() == QEvent::KeyPress) {
+        QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+        if (keyEvent->key() == Qt::Key_Tab && !currentSuggestion.isEmpty()) {
+
+            QTextCursor cursor = ui->inputTextEdit->textCursor();
+            QString text = ui->inputTextEdit->toPlainText();
+            int pos = cursor.position();
+
+            // finding the start of the current word
+            int start = pos - 1;
+            while (start >= 0) {
+                QChar ch = text[start];
+                if (!ch.isLetterOrNumber()) break;
+                start--;
+            }
+            int wordStart = start + 1;
+            int len = pos - wordStart;
+
+            cursor.beginEditBlock();
+            // deleting the current unfinished word
+            cursor.setPosition(wordStart);
+            cursor.setPosition(pos, QTextCursor::KeepAnchor);
+            cursor.removeSelectedText();
+            // inserting the full suggestion
+            cursor.insertText(currentSuggestion);
+            cursor.endEditBlock();
+
+            ui->inputTextEdit->setTextCursor(cursor);
+            currentSuggestion.clear();
+
+
+            return true;
+        }
+    }
+    return QMainWindow::eventFilter(obj, event);
+}
+
 
 
 

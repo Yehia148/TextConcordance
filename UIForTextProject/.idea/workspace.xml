@@ -18,7 +18,9 @@
     <option name="reloaded" value="true" />
   </component>
   <component name="CMakeRunConfigurationManager">
-    <generated />
+    <generated>
+      <config projectName="UIForTextProject" targetName="UIForTextProject" />
+    </generated>
   </component>
   <component name="CMakeSettings">
     <configurations>
@@ -27,17 +29,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b5ce9c8-4fb7-480b-994e-fb6e313c066f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/UIForTextProject.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../WordNetSynonyms.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../WordNetSynonyms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GhostTextEdit.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GhostTextEdit.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WordNetSynonyms_qt.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/QtSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/QtSettings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMakeLists.txt.user" beforeDir="false" afterPath="$PROJECT_DIR$/../CMakeLists.txt.user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TrieConcordance.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../TrieConcordance.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TrieConcordance.h" beforeDir="false" afterPath="$PROJECT_DIR$/../TrieConcordance.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mainwindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/mainwindow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../test.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainwindow.h" beforeDir="false" afterPath="$PROJECT_DIR$/mainwindow.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainwindow.ui" beforeDir="false" afterPath="$PROJECT_DIR$/mainwindow.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WordNetSynonyms.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../WordNetSynonyms.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +52,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -66,6 +72,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "CMake Application.UIForTextProject.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.RadMigrateCodeStyle": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -73,6 +80,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "RunOnceActivity.west.config.association.type.startup.service": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
@@ -81,9 +89,25 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="UIForTextProject" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="UIForTextProject" TARGET_NAME="UIForTextProject" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="UIForTextProject" RUN_TARGET_NAME="UIForTextProject">
+      <envs>
+        <env name="PATH" value="D:\Qt\6.10.1\mingw_64\bin" />
+      </envs>
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="0b5ce9c8-4fb7-480b-994e-fb6e313c066f" name="Changes" comment="" />
@@ -95,6 +119,7 @@
       <workItem from="1763804767267" duration="649000" />
       <workItem from="1763805689075" duration="6000" />
       <workItem from="1763808847509" duration="149000" />
+      <workItem from="1764950806033" duration="11832000" />
     </task>
     <servers />
   </component>
@@ -105,5 +130,15 @@
     <isAutomaticCheckingOnLaunch value="false" />
     <isAutomaticFoundErrors value="true" />
     <isAutomaticReloadCMake value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/GhostTextEdit.cpp</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

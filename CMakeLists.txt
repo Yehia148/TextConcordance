@@ -20,6 +20,8 @@ add_executable(TextConcordanceCLI
         WordNetSynonyms.cpp
         WordNetSynonyms.h
         map.cpp
+        UIForTextProject/GhostTextEdit.h
+        UIForTextProject/GhostTextEdit.cpp
 )
 
 

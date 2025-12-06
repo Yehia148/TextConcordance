@@ -14,10 +14,6 @@
 #include <iostream>
 
 
-// path to wordnet
-static const std::string WN_BIN_PATH =
-    "C:/Program Files (x86)/WordNet/2.1/bin";
-
 #ifdef _WIN32
     #define POPEN  _popen
     #define PCLOSE _pclose
@@ -36,61 +32,58 @@ static std::string trim(const std::string& s) {
 
 std::vector<std::string> getSynonyms(const std::string& word) {
 
-    // make WordNet find the dict folder
-    _putenv("WNHOME=C:\\Program Files (x86)\\WordNet\\2.1");
-
     std::vector<std::string> synonyms;
+    if (word.empty()) return synonyms;
+
+    std::string urlWord = word;
+    for (char &c : urlWord) {
+        c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+    }
+    std::replace(urlWord.begin(), urlWord.end(), ' ', '+');
 
     std::string command =
-        "\"" + WN_BIN_PATH + "/wn.exe\" " + word + " -synsn 2>&1";
+        "curl -s \"http://api.datamuse.com/words?rel_syn=" + urlWord + "\" 2>&1";
 
     std::array<char, 256> buffer{};
-
     FILE* pipe = POPEN(command.c_str(), "r");
     if (!pipe) {
         return synonyms;
     }
 
+    std::string json;
+    // calling wordnet API
     while (fgets(buffer.data(), static_cast<int>(buffer.size()), pipe) != nullptr) {
-        std::string line = buffer.data();
-        line = trim(line);
-
-        if (line.empty()) continue;
-
-
-        if (!line.empty() &&
-            std::isdigit(static_cast<unsigned char>(line[0])) &&
-            line.find("sense") != std::string::npos)
-        {
-            continue;  // skip sense count lines
-        }
-
-        // Skip headers
-        if (line.rfind("Synonyms/Hypernyms", 0) == 0) continue;
-
-        // Skip "Sense 1", "Sense 2", ...
-        if (line.rfind("Sense ", 0) == 0) continue;
-
-        // Remove leading "=>"
-        if (line.rfind("=>", 0) == 0) {
-            line = trim(line.substr(2));
-        }
-
-        // Remove underscores
-        std::replace(line.begin(), line.end(), '_', ' ');
-
-        line = trim(line);
-
-        // Skip the queried word itself
-        if (line == word) continue;
-
-        if (!line.empty() &&
-            std::find(synonyms.begin(), synonyms.end(), line) == synonyms.end()) {
-
-            synonyms.push_back(line);
-        }
+        json += buffer.data();
     }
 
     PCLOSE(pipe);
+
+    std::size_t pos = 0;
+    while (true) {
+        pos = json.find("\"word\"", pos);
+        if (pos == std::string::npos) break;
+
+        std::size_t colon = json.find(':', pos);
+        if (colon == std::string::npos) break;
+
+        std::size_t q1 = json.find('"', colon + 1);
+        if (q1 == std::string::npos) break;
+
+        std::size_t q2 = json.find('"', q1 + 1);
+        if (q2 == std::string::npos) break;
+
+        std::string w = json.substr(q1 + 1, q2 - q1 - 1);
+        w = trim(w);
+
+        if (!w.empty() &&
+            w != word &&
+            std::find(synonyms.begin(), synonyms.end(), w) == synonyms.end()) {
+
+            synonyms.push_back(w);
+        }
+
+        pos = q2 + 1;
+    }
+
     return synonyms;
 }

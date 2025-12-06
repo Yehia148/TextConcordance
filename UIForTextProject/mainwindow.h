@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include "..\TrieConcordance.h"
 #include "..\map.h"
+#include "GhostTextEdit.h"
+
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -24,11 +27,17 @@ private slots:
 
     void on_analyzeButton_clicked();
 
+    void onInputTextChanged();
+
 private:
     Ui::MainWindow *ui;
   Map*wordMap;
     TrieConcordance trie;
     QString mostFrequentWord;
     const int frequency = 5;
+    QString currentSuggestion;
+
+protected:
+    bool eventFilter(QObject* obj, QEvent* event) override;
 };
 #endif // MAINWINDOW_H
