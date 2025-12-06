@@ -1,3 +1,9 @@
+/**
+ * The map module implements a Map class using linked lists as buckets.
+ * Keys are word strings and values are the number of times a word
+ * appears throughout the user's text.
+ */
+
 #pragma once
 #include <string>
 #include <vector>

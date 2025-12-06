@@ -10,20 +10,8 @@ Map::Map() {
     frequency_list = new Node*[LIST_LENGTH]();
     word_count = 0;
 }
-Map::~Map() {
-    if (frequency_list) {
-        for (int i = 0; i < LIST_LENGTH; ++i) {
-            Node* current = frequency_list[i];
-            while (current) {
-                Node* next = current->next;
-                delete current;
-                current = next;
-            }
-        }
-        delete[] frequency_list;
-        frequency_list = nullptr;
-    }
-}
+
+
 
 Map::Map(string word) {
     frequency_list = new Node*[2000];
@@ -53,6 +41,22 @@ Map::Map(vector<string> word_list) {
 }
 
 
+Map::~Map() {
+    if (frequency_list) {
+        for (int i = 0; i < LIST_LENGTH; ++i) {
+            Node* current = frequency_list[i];
+            while (current) {
+                Node* next = current->next;
+                delete current;
+                current = next;
+            }
+        }
+        delete[] frequency_list;
+        frequency_list = nullptr;
+    }
+}
+
+
 void Map::append_word(string word, int hash) {
     Node *n, *temp = frequency_list[hash];
     if (!temp) {
@@ -72,6 +76,11 @@ void Map::append_word(string word, int hash) {
 
 
 void Map::put_word(string word) {
+    /**
+     * Determines first whether the word is already in the map.
+     * If the word is in the map, its frequency is increased.
+     * If not, the word is placed in the map with frequency 1.
+     */
     unsigned int hash = hash_fun(word);
     Node *n, *temp = frequency_list[hash];
     bool added = false;
@@ -95,6 +104,11 @@ void Map::put_word(string word) {
 
 
 int Map::delete_word(string word) {
+    /**
+     * If the word's frequency is positive, it is decremented and returned.
+     * If the frequency is 0, then 0 is returned.
+     * If the word is not found in the map, -1 is returned.
+     */
     int hash = hash_fun(word);
     Node *n, *temp = frequency_list[hash];
 
@@ -113,6 +127,9 @@ int Map::delete_word(string word) {
 
 
 int Map::get_frequency(string word) {
+    /**
+     * Returns the frequency of the word if found or 0 if not found.
+     */
     int hash = hash_fun(word);
     Node *n, *temp = frequency_list[hash];
 
@@ -173,6 +190,9 @@ void Map::merge_sort(vpsi &list) {
 
 
 vpsi Map::sort_by_frequency() {
+    /**
+     * Uses merge sort to sort words by ascending frequency.
+     */
     vpsi list;
     list.reserve(word_count);
     for (int i=0; i<LIST_LENGTH; ++i) {
