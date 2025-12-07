@@ -31,6 +31,10 @@ static std::string trim(const std::string& s) {
 }
 
 std::vector<std::string> getSynonyms(const std::string& word) {
+    /**
+     * Fetches synonym data from WordNet and parses it
+     * for readability, then returns it as a vector.
+     */
 
     std::vector<std::string> synonyms;
     if (word.empty()) return synonyms;
