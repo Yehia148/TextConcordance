@@ -112,7 +112,7 @@ void MainWindow::on_analyzeButton_clicked()
 }
 void MainWindow::on_suggestButton_clicked()
 /**
-* Takes in the text from the user in the text box, cleans it, then displays the most frequent word after sorting.
+* Takes in the text from the user in the text box, obtains the frequency, uses wordnet to get synonyms and displays them.
 */
 {
     if (mostFrequentWord.isEmpty()) {
@@ -144,6 +144,10 @@ void MainWindow::on_suggestButton_clicked()
 
 void MainWindow::onInputTextChanged()
 {
+    /**
+* runs whenever the user types in the textbox, gets the current and previous word to give the next word.
+* If there is a suggestion, append it as ghost text
+*/
     QString text = ui->inputTextEdit->toPlainText();
     QTextCursor cursor = ui->inputTextEdit->textCursor();
     int pos = cursor.position();
@@ -205,6 +209,9 @@ void MainWindow::onInputTextChanged()
 
 bool MainWindow::eventFilter(QObject* obj, QEvent* event)
 {
+    /**
+* This allows the user, when they press tab, to replace the current word with the suggested word.
+*/
     if (obj == ui->inputTextEdit && event->type() == QEvent::KeyPress) {
         QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
         if (keyEvent->key() == Qt::Key_Tab && !currentSuggestion.isEmpty()) {
