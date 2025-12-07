@@ -114,6 +114,9 @@ void TrieConcordance::addFollower(TrieNode* node, const string& nextWord) {
 
 
 void TrieConcordance::insert(const string& currentWordRaw, const string& nextWordRaw) {
+    /**
+     * Processes a pair of words into the trie.
+     */
     string currentWord = normalizeToken(currentWordRaw);
     if (currentWord.size() == 0) {
         return;
@@ -174,6 +177,11 @@ void TrieConcordance::printTopFollowers(TrieNode* node) { //prints the three mos
 }
 
 void TrieConcordance::showWordInfo(const string& rawWord) {
+    /**
+     * Displays the frequency of a word within word
+     * pairs if the word is found in the trie.
+     * If the word is not found, an error is printed.
+     */
     string word = normalizeToken(rawWord);
     if (word.size() == 0) {
         cout << "Invalid word." << endl;
@@ -232,6 +240,9 @@ void TrieConcordance::findMostFrequent(TrieNode* node,
 }
 
 string TrieConcordance::getMostFrequentWord() {
+    /**
+     * Returns the most frequent word in the trie's stored phrases.
+     */
     string bestWord;
     int bestFreq = 0;
     string current;
@@ -241,6 +252,10 @@ string TrieConcordance::getMostFrequentWord() {
 }
 
 bool TrieConcordance::getBestCompletion(const string& prefix, string& outWord) {
+    /**
+     * Extracts the most frequent word containing the given prefix.
+     * If none are found (the prefix does not exist) the function returns false.
+     */
     string norm = normalizeToken(prefix);
     if (norm.empty()) return false;
 
@@ -261,6 +276,10 @@ bool TrieConcordance::getBestCompletion(const string& prefix, string& outWord) {
 bool TrieConcordance::getNextWordSuggestion(const string& prevWord,
                                             const string& nextPrefix,
                                             string& outWord) {
+    /**
+     * Extracts the most frequent successor of the given word-prefix combination.
+     * If none are found (the combination does not exist) the function returns false.
+     */
     string prev = normalizeToken(prevWord);
     if (prev.empty()) return false;
 
