@@ -29,10 +29,13 @@ MainWindow::~MainWindow()
     delete wordMap;
 }
 
-
 void MainWindow::on_analyzeButton_clicked()
+/**
+* Takes in the text from the user in the text box, cleans it, then displays the most frequent word after sorting.
+*/
+
 {
-    if(wordMap){
+    if (wordMap){
         delete wordMap;
         wordMap = nullptr;
     }
@@ -108,6 +111,9 @@ void MainWindow::on_analyzeButton_clicked()
 
 }
 void MainWindow::on_suggestButton_clicked()
+/**
+* Takes in the text from the user in the text box, cleans it, then displays the most frequent word after sorting.
+*/
 {
     if (mostFrequentWord.isEmpty()) {
         QMessageBox::warning(this, "Error", "Analyze text first.");
